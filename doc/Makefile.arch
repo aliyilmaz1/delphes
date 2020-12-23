@@ -55,9 +55,10 @@ HASTHREAD    := $(shell $(RC) --has-thread)
 ROOTCINT     := rootcint
 
 ifeq ($(PLATFORM),macosx)
+MACOSX_MAJOR := $(shell sw_vers | sed -n 's/ProductVersion://p' | cut -d . -f 1)
 MACOSX_MINOR := $(shell sw_vers | sed -n 's/ProductVersion://p' | cut -d . -f 2)
 ifeq ($(MACOSX_DEPLOYMENT_TARGET),)
-MACOSXTARGET := 10.$(MACOSX_MINOR)
+MACOSXTARGET := $(MACOSX_MAJOR).$(MACOSX_MINOR)
 else
 MACOSXTARGET := $(MACOSX_DEPLOYMENT_TARGET)
 endif
